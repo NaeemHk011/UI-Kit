@@ -1,44 +1,82 @@
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
+import React from 'react';
 
-
-
-
-const Button = ({ variant = 'primary', size = 'medium', disabled = false, loading = false, className = '', color, type = 'button', children, ...props }) => {
-  const variantStyles = {
-    primary: `text-white ${color ? `bg-[${color}] hover:bg-[${color}]` : 'bg-[#536BB8] hover:bg-[#6A80C4]'} transition-all duration-200`,
-    secondary: `bg-white border-2 ${color ? `border-[${color}] text-[${color}] hover:bg-[${color}] hover:text-white` : 'border-[#536BB8] text-[#536BB8] hover:bg-[#536BB8] hover:text-white'} transition-all duration-200`,
-    outline: `bg-transparent border-2 ${color ? `border-[${color}] text-[${color}] hover:bg-[${color}] hover:text-white` : 'border-[#536BB8] text-[#536BB8] hover:bg-[#536BB8] hover:text-white'} transition-all duration-200`,
-    danger: `text-white ${color ? `bg-[${color}] hover:bg-[${color}]` : 'bg-[#EF4444] hover:bg-[#DC2626]'} transition-all duration-200`,
+const UIKitBtn = ({
+  label = 'Button',
+  type = 'primary',
+  size = 'sm',
+  shine = 'medium',
+  onClick = () => {},
+  style = {},
+  borderRadius = 'rounded-lg',
+  fontSize = 'text-base',
+  padding = 'px-4 py-2',
+  disabled = false,
+  icon,
+  className = '',
+}) => {
+  const sizeClasses = {
+    sm: 'px-4 py-2 text-sm',
+    md: 'px-6 py-3 text-base',
+    lg: 'px-8 py-4 text-lg',
   };
-  const sizeStyles = {
-    small: 'px-2 py-1 text-sm',
-    medium: 'px-4 py-2 text-base',
-    large: 'px-6 py-3 text-lg',
+
+  const typeClasses = {
+    primary:
+      'bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg hover:from-blue-600 hover:to-blue-800',
+    secondary:
+      'bg-gradient-to-r from-gray-600 to-gray-800 text-white shadow-lg hover:from-gray-700 hover:to-gray-900',
+    outline:
+      'border-2 border-blue-500 text-blue-500 bg-transparent shadow-lg hover:bg-blue-500 hover:text-white',
+    success:
+      'bg-gradient-to-r from-green-500 to-green-700 text-white shadow-lg hover:from-green-600 hover:to-green-800',
+    danger:
+      'bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg hover:from-red-600 hover:to-red-800',
   };
-  const baseStyles = 'rounded-md font-semibold focus:ring-2 focus:ring-[#536BB8] focus:ring-opacity-50 flex items-center justify-center';
+
+  const shineStyles = {
+    low: 'shine-low',
+    medium: 'shine-medium',
+    high: 'shine-high',
+  };
+
+  const baseStyles =
+    'relative overflow-hidden font-semibold transition-all duration-300 flex items-center justify-center gap-2';
   const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : '';
-  const loadingStyles = loading ? 'cursor-wait' : '';
-  const classes = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${disabledStyles} ${loadingStyles} ${className} transform hover:scale-105 active:scale-95`;
 
   return (
     <button
-      type={type}
-      disabled={disabled || loading}
-      className={classes}
-      {...props}
+      style={{ ...style }}
+      onClick={onClick}
+      className={`inline-block ${baseStyles} ${sizeClasses[size]} ${typeClasses[type]} ${shineStyles[shine]} ${borderRadius} ${fontSize} ${padding} ${disabledStyles} ${className}`}
+      disabled={disabled}
     >
-      {loading && <ArrowPathIcon className="w-5 h-5 mr-2 animate-spin" />}
-      {children}
+      {icon && <span className="text-lg">{icon}</span>}
+      <span className="relative z-10">{label}</span>
+      {!disabled && <span className="shiny-effect" />}
     </button>
   );
 };
 
-export default Button;
+export default UIKitBtn;
 
 
 
 
 
 
+// src/App.jsx
 
+// import React from 'react';
+
+// import UIKitBtn from './components/Button/button';
+
+// const App = () => {
+//   return (
+//     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+//   <UIKitBtn label='CLICK ME'  type='success' style={{padding:'20px'}} className='primary'/>
+//     </div>
+//   );
+// };
+
+// export default App;
