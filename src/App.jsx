@@ -1,8 +1,11 @@
 import React from 'react'
+import Button from './components/Button/button'
 
 function App() {
   return (
-    <div className='text-pink-500'>App</div>
+    <div>
+      <Button/>
+    </div>
   )
 }
 
