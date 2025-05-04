@@ -1,0 +1,28 @@
+input[type="range"].custom-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  input[type="range"].custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-top: -6px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease;
+  }
+  
+  input[type="range"].custom-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  }

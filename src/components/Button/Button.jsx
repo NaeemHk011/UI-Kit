@@ -1,12 +1,13 @@
 
 import React from 'react';
 
+
 const UIKitBtn = ({
   label = 'Button',
   type = 'primary',
   size = 'sm',
   shine = 'medium',
-  onClick = () => {},
+  onClick = () => { },
   style = {},
   borderRadius = 'rounded-lg',
   fontSize = 'text-base',
@@ -32,6 +33,11 @@ const UIKitBtn = ({
       'bg-gradient-to-r from-green-500 to-green-700 text-white shadow-lg hover:from-green-600 hover:to-green-800',
     danger:
       'bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg hover:from-red-600 hover:to-red-800',
+
+    customBlue: 'bg-blue-500 text-white hover:bg-blue-600 shadow-lg',
+    customGreen:'bg-green-500 text-white hover:bg-green-600 shadow-lg',
+    customRed:  'bg-red-500 text-white hover:bg-red-600 shadow-lg',
+    customPurple:'bg-purple-500 text-white hover:bg-purple-600 shadow-lg',
   };
 
   const shineStyles = {
