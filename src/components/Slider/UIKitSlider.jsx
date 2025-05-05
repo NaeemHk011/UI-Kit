@@ -8,7 +8,7 @@ const UIKitSlider = ({
   step = 1,
   showValue = true,
   unit = '%',
-  color = 'green',
+  color = 'blue',  // Default color blue
   height = '8px',        
   thumbSize = '20px',
   label = '',
@@ -24,9 +24,8 @@ const UIKitSlider = ({
         </label>
       )}
 
-      {/* Slider  */}
+      {/* Slider */}
       <div className="relative rounded-full bg-gray-300" style={{ height }}>
-
 
         {/* Filled */}
         <div
@@ -51,14 +50,14 @@ const UIKitSlider = ({
         />
       </div>
 
-      {/*  Value Below */}
+      {/* Value Below */}
       {showValue && (
         <div className="text-center text-sm text-gray-700 mt-1">
           {value} {unit}
         </div>
       )}
 
-      {/* Sli-Thumb Styling */}
+      {/* Slider Thumb Styling */}
       <style>{`
         input[type=range]::-webkit-slider-thumb {
           -webkit-appearance: none;
@@ -67,7 +66,7 @@ const UIKitSlider = ({
           height: ${thumbSize};
           border-radius: 50%;
           border: 2px solid white;
-          background-color: ${getColorHex(color)};
+          background-color: ${getColorHex(color)}; /* Thumb color */
           box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
           cursor: pointer;
           margin-top: calc((${height} - ${thumbSize}) / 2);
@@ -78,7 +77,7 @@ const UIKitSlider = ({
           height: ${thumbSize};
           border-radius: 50%;
           border: 2px solid white;
-          background-color: ${getColorHex(color)};
+          background-color: ${getColorHex(color)}; /* Thumb color */
           box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
         }
       `}</style>
@@ -86,16 +85,16 @@ const UIKitSlider = ({
   );
 };
 
-//  Converts color name to HEX
+// Converts color name to HEX
 const getColorHex = (color) => {
   const map = {
     green: '#10B981',
-    blue: '#3B82F6',
+    blue: '#4B5EAA', // Updated blue color
     red: '#EF4444',
     purple: '#8B5CF6',
     gray: '#6B7280',
   };
-  return map[color] || '#3B82F6'; // Default: blue
+  return map[color] || '#4B5EAA'; // Default: blue
 };
 
 export default UIKitSlider;

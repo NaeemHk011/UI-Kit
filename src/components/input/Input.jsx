@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 
 const UIKitInput = ({ 
-  type, 
+  type = 'text', 
   placeholder, 
   value, 
   onChange, 
   label, 
   name, 
   error, 
-  isPasswordToggle,
-  className 
+  isPasswordToggle = false,
+  labelColor = '#4B5EAA',  // Label color can be passed as prop
+  borderColor = 'border-gray-300',  // Border color can be passed as prop
+  padding = 'p-2',  // Padding can be passed as prop
+  height = 'h-10',  // Height can be passed as prop
+  showPasswordText = { show: 'Show', hide: 'Hide' },  // Allow dynamic text for password toggle
+  className = '' 
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -19,7 +24,7 @@ const UIKitInput = ({
 
   return (
     <div className="flex flex-col space-y-2">
-      {label && <label htmlFor={name} className="text-sm font-medium text-gray-700">{label}</label>}
+      {label && <label htmlFor={name} className={`text-sm font-medium`} style={{ color: labelColor }}>{label}</label>}
       <div className="relative">
         <input
           type={isPasswordToggle && showPassword ? "text" : type}
@@ -27,7 +32,7 @@ const UIKitInput = ({
           value={value}
           onChange={onChange}
           name={name}
-          className={`border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className || 'w-full h-10'}`}
+          className={`border-2 ${borderColor} rounded-lg ${padding} focus:outline-none focus:ring-2 focus:ring-blue-500 ${className || 'w-full'} ${height}`}
         />
         {isPasswordToggle && (
           <button
@@ -35,7 +40,7 @@ const UIKitInput = ({
             onClick={handlePasswordToggle}
             className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm"
           >
-            {showPassword ? 'Hide' : 'Show'}
+            {showPassword ? showPasswordText.hide : showPasswordText.show}
           </button>
         )}
       </div>

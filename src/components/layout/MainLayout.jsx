@@ -145,7 +145,7 @@ const MainLayout = () => {
          
          
           <Link
-            to="/radioButton"
+            to="/RadioButton"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -172,30 +172,10 @@ const MainLayout = () => {
           </Link>
          
          
+
          
-         
-         
-         
-         
-         
-         
-         
-          <Link
-            to="/Avatar"
-            className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
-              border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
-              transition-all duration-300 ease-in-out"
-          >
-            <FaUserCircle className="text-lg" />
-            <span>Avatar</span>
-          </Link>
-         
-         
-         
-         
-         
-         
-         
+             
+       
          
          
           <Link

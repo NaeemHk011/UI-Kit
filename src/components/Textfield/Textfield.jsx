@@ -10,10 +10,12 @@ const UIKitTextfield = ({
   className = '',
   disabled = false,
   error = '',
+  labelColor = '#4B5EAA',  
+  errorColor = 'text-red-500',
 }) => {
   return (
     <div className="flex flex-col space-y-1">
-      {label && <label className="text-sm font-medium text-gray-700">{label}</label>}
+      {label && <label className={`text-sm font-medium`} style={{ color: labelColor }}>{label}</label>}
 
       <input
         type={type}
@@ -25,7 +27,7 @@ const UIKitTextfield = ({
         className={className}
       />
 
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className={`text-sm mt-1 ${errorColor}`}>{error}</p>}
     </div>
   );
 };

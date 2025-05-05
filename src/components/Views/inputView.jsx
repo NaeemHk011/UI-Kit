@@ -9,7 +9,7 @@ const InputView = () => {
 
   return (
     <div className="space-y-6 p-6 max-w-xl mx-auto bg-white rounded-lg shadow-md">
-      <h2 className="text-3xl font-bold text-pink-600 text-center mb-6">✨ Input Fields ✨</h2>
+      <h2 className="text-3xl font-bold text-[#4B5EAA] text-center mb-6">✨ Input Fields ✨</h2>
 
 
 

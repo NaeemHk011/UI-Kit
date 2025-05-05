@@ -11,8 +11,8 @@ import InputView from './components/Views/inputView';
 import SliderView from './components/Views/sliderViews';
 import TextView from './components/Views/textfieldView';
 import SwitchView from './components/Views/switchView';
-import AvatarView from './components/Views/avatarView';
 import BadgeView from './components/Views/badgeView';
+import RadioViews from './components/Views/radioViews';
 
 
 
@@ -30,8 +30,9 @@ createRoot(document.getElementById('root')).render(
             <Route path="Slider" element={<SliderView/>} />
             <Route path="Textfield" element={<TextView/>} />
             <Route path="SwitchButton" element={<SwitchView/>} />
-            <Route path="Avatar" element={<AvatarView/>} />
+            <Route path="RadioButton" element={<RadioViews/>} />
             <Route path="Badge" element={<BadgeView/>} />
+
             {/* ✅ Add more routes like inputs, toggles, etc. */}
           </Route>
         </Routes>

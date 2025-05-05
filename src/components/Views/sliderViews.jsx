@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import UIKitSlider from '../Slider/UIKitSlider';
 
-const InputView = () => {
+const SliderView = () => {
   const [sliderValue1, setSliderValue1] = useState(25);
   const [sliderValue2, setSliderValue2] = useState(50);
   const [sliderValue3, setSliderValue3] = useState(75);
@@ -19,7 +19,7 @@ const InputView = () => {
         step={1}
         showValue={true}
         unit="%"
-        color="green"
+        color="blue" // Blue thumb color
         label="Slider 1: Custom Range (0-100)"
         height="12px"
         thumbSize="24px"
@@ -35,7 +35,7 @@ const InputView = () => {
         step={5}
         showValue={true}
         unit="kg"
-        color="blue"
+        color="blue" // Blue thumb color
         label="Slider 2: Weight (0-200 kg)"
         height="10px"
         thumbSize="18px"
@@ -51,7 +51,7 @@ const InputView = () => {
         step={10}
         showValue={true}
         unit="m"
-        color="purple"
+        color="blue" // Blue thumb color
         label="Slider 3: Distance (0-500 meters)"
         height="14px"
         thumbSize="26px"
@@ -61,4 +61,4 @@ const InputView = () => {
   );
 };
 
-export default InputView;
+export default SliderView;

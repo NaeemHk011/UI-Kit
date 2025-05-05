@@ -1,7 +1,7 @@
 // src/components/ButtonView.jsx
 
 import React from 'react';
-import UIKitBtn from '../Button/button';
+import UIKitBtn from '../Button/Button';
 
 const ButtonView = () => {
   return (
