@@ -1,3 +1,5 @@
+// UIKitIcons.jsx or .ts
+
 import {
   FaCoins,
   FaUsers,
@@ -21,34 +23,42 @@ import {
   FaUnlock,
   FaEye,
   FaEyeSlash,
-  FaChartBar, // ✅ Add this line
+  FaChartBar,
+  FaCheck,
+  FaTimes,
+  FaHeart,
+  FaRocket,
+  FaInfo
 } from "react-icons/fa";
 
-  
-  export const UIKitIcons = {
-    coins: <FaCoins className="text-yellow-500 text-xl" />,
-    users: <FaUsers className="text-blue-600 text-xl" />,
-    cart: <FaShoppingCart className="text-green-600 text-xl" />,
-    bell: <FaBell className="text-red-500 text-xl" />,
-    check: <FaCheckCircle className="text-green-600 text-xl" />,
-    error: <FaTimesCircle className="text-red-600 text-xl" />,
-    edit: <FaEdit className="text-blue-500 text-xl" />,
-    delete: <FaTrash className="text-red-500 text-xl" />,
-    facebook: <FaFacebook className="text-blue-600 text-xl" />,
-    twitter: <FaTwitter className="text-sky-400 text-xl" />,
-    linkedin: <FaLinkedin className="text-blue-700 text-xl" />,
-    instagram: <FaInstagram className="text-pink-500 text-xl" />,
-    add: <FaPlus className="text-green-500 text-xl" />,
-    remove: <FaMinus className="text-gray-500 text-xl" />,
-    home: <FaHome className="text-indigo-500 text-xl" />,
-    mail: <FaEnvelope className="text-gray-600 text-xl" />,
-    phone: <FaPhone className="text-green-500 text-xl" />,
-    search: <FaSearch className="text-gray-400 text-xl" />,
-    lock: <FaLock className="text-gray-700 text-xl" />,
-    unlock: <FaUnlock className="text-green-700 text-xl" />,
-    eye: <FaEye className="text-gray-600 text-xl" />,
-    eyeSlash: <FaEyeSlash className="text-gray-400 text-xl" />,
-    alert: <FaBell className="text-red-500" />,
-    growth: <FaChartBar className="text-green-500" />
-  };
-    
+export const UIKitIcons = {
+  coins: <FaCoins className="text-yellow-500 text-xl" />,
+  users: <FaUsers className="text-blue-600 text-xl" />,
+  cart: <FaShoppingCart className="text-green-600 text-xl" />,
+  bell: <FaBell className="text-red-500 text-xl" />,
+  checkCircle: <FaCheckCircle className="text-green-600 text-xl" />,
+  error: <FaTimesCircle className="text-red-600 text-xl" />,
+  edit: <FaEdit className="text-blue-500 text-xl" />,
+  delete: <FaTrash className="text-red-500 text-xl" />,
+  facebook: <FaFacebook className="text-blue-600 text-xl" />,
+  twitter: <FaTwitter className="text-sky-400 text-xl" />,
+  linkedin: <FaLinkedin className="text-blue-700 text-xl" />,
+  instagram: <FaInstagram className="text-pink-500 text-xl" />,
+  add: <FaPlus className="text-green-500 text-xl" />,
+  remove: <FaMinus className="text-gray-500 text-xl" />,
+  home: <FaHome className="text-indigo-500 text-xl" />,
+  mail: <FaEnvelope className="text-gray-600 text-xl" />,
+  phone: <FaPhone className="text-green-500 text-xl" />,
+  search: <FaSearch className="text-gray-400 text-xl" />,
+  lock: <FaLock className="text-gray-700 text-xl" />,
+  unlock: <FaUnlock className="text-green-700 text-xl" />,
+  eye: <FaEye className="text-gray-600 text-xl" />,
+  eyeSlash: <FaEyeSlash className="text-gray-400 text-xl" />,
+  alert: <FaBell className="text-red-500" />,
+  growth: <FaChartBar className="text-green-500" />,
+  check: <FaCheck className="text-white text-xl" />,
+  close: <FaTimes className="text-white text-xl" />,
+  heart: <FaHeart className="text-red-500 text-xl" />,
+  rocket: <FaRocket className="text-blue-400 text-xl" />,
+  info: <FaInfo className="text-cyan-400 text-xl" />
+};

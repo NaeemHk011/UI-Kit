@@ -11,7 +11,7 @@ const TextView = () => {
     <div className="max-w-xl mx-auto space-y-6 p-6 bg-white rounded-xl shadow-md">
       
       {/* Section Heading */}
-      <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">✨ Beautiful Text Fields Showcase</h2>
+      <h2 className="text-3xl font-semibold text-center text-gray-800 mb-4">✨ Text Fields ✨</h2>
 
       <UIKitTextfield
         label="Full Name"
