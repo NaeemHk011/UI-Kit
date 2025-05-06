@@ -10,7 +10,7 @@ const TextView = () => {
   return (
     <div className="max-w-xl mx-auto space-y-6 p-6 bg-white rounded-xl shadow-md">
       
-      {/* Section Heading */}
+      {/*  Heading */}
       <h2 className="text-3xl font-semibold text-center text-[#4B5EAA] mb-4">✨ Text Fields ✨</h2>
 
       <UIKitTextfield

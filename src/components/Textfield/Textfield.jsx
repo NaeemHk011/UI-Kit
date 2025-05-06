@@ -14,10 +14,12 @@ const UIKitTextfield = ({
   errorColor = 'text-red-500',
 }) => {
   return (
-    <div className="flex flex-col space-y-1">
+    <div className="flex flex-col border-2 space-y-1">
       {label && <label className={`text-sm font-medium`} style={{ color: labelColor }}>{label}</label>}
 
       <input
+
+      
         type={type}
         name={name}
         placeholder={placeholder}

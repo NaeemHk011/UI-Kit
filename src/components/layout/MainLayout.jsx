@@ -194,7 +194,7 @@ const MainLayout = () => {
          
          
           <Link
-            to="/alert"
+            to="/Alert"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -212,7 +212,7 @@ const MainLayout = () => {
          
          
           <Link
-            to="/progress"
+            to="/Progressbar"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -252,13 +252,13 @@ const MainLayout = () => {
          
          
           <Link
-            to="/list"
+            to="/Avatar"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
           >
             <FaList className="text-lg" />
-            <span>List</span>
+            <span>Avatar</span>
           </Link>
          
          
@@ -270,7 +270,7 @@ const MainLayout = () => {
          
          
           <Link
-            to="/table"
+            to="/Table"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"

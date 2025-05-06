@@ -89,7 +89,7 @@ const UIKitSlider = ({
 const getColorHex = (color) => {
   const map = {
     green: '#10B981',
-    blue: '#4B5EAA', // Updated blue color
+    blue: '#4B5EAA', 
     red: '#EF4444',
     purple: '#8B5CF6',
     gray: '#6B7280',

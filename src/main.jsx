@@ -13,6 +13,14 @@ import TextView from './components/Views/textfieldView';
 import SwitchView from './components/Views/switchView';
 import BadgeView from './components/Views/badgeView';
 import RadioViews from './components/Views/radioViews';
+import { AlertView } from './components/Views/alertView';
+import { ProgressView } from './components/Views/progressView';
+import { TableView } from './components/Views/tableView';
+import AvatarView from './components/Views/avatarView';
+
+
+
+
 
 
 
@@ -32,8 +40,13 @@ createRoot(document.getElementById('root')).render(
             <Route path="SwitchButton" element={<SwitchView/>} />
             <Route path="RadioButton" element={<RadioViews/>} />
             <Route path="Badge" element={<BadgeView/>} />
+            <Route path="Alert" element={<AlertView/>} />
+            <Route path="Progressbar" element={<ProgressView/>} />
+            <Route path="Avatar" element={<AvatarView/>} />
+            <Route path="Table" element={<TableView/>} />
 
-            {/* ✅ Add more routes like inputs, toggles, etc. */}
+
+            {/* more routes  */}
           </Route>
         </Routes>
       </ErrorBoundary>
