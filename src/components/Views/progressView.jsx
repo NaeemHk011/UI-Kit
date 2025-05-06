@@ -1,6 +1,6 @@
 // src/components/progressView.jsx
 import React from 'react';
-import { UIKitTable } from '../Table/table';
+import { UIKitProgress } from '../Progress/progressBar';
 
 
 export const ProgressView = () => {

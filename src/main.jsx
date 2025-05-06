@@ -17,6 +17,8 @@ import { AlertView } from './components/Views/alertView';
 import { ProgressView } from './components/Views/progressView';
 import { TableView } from './components/Views/tableView';
 import AvatarView from './components/Views/avatarView';
+import TooltipView from './components/Views/tooltipView';
+import TypographyView from './components/Views/typographyView';
 
 
 
@@ -41,9 +43,12 @@ createRoot(document.getElementById('root')).render(
             <Route path="RadioButton" element={<RadioViews/>} />
             <Route path="Badge" element={<BadgeView/>} />
             <Route path="Alert" element={<AlertView/>} />
-            <Route path="Progressbar" element={<ProgressView/>} />
+            <Route path="Progress" element={<ProgressView/>} />
             <Route path="Avatar" element={<AvatarView/>} />
             <Route path="Table" element={<TableView/>} />
+            <Route path="Tooltip" element={<TooltipView/>} />
+            <Route path="Typography" element={<TypographyView/>} />
+
 
 
             {/* more routes  */}
