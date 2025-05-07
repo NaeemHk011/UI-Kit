@@ -19,6 +19,8 @@ import { TableView } from './components/Views/tableView';
 import AvatarView from './components/Views/avatarView';
 import TooltipView from './components/Views/tooltipView';
 import TypographyView from './components/Views/typographyView';
+import FloatView from './components/Views/floatbuttonView';
+
 
 
 
@@ -48,6 +50,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="Table" element={<TableView/>} />
             <Route path="Tooltip" element={<TooltipView/>} />
             <Route path="Typography" element={<TypographyView/>} />
+            <Route path="Floatbuttons" element={<FloatView/>} />
 
 
 
