@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { FaSortUp, FaSortDown } from 'react-icons/fa';
 
-export const UIKitTable = ({ columns, data, headerColor = '#4B5EAA', scrollEnabled = true }) => {
+export const UIKitTable = ({ columns, data, headerColor = '#4B5EAA', scrollEnabled = true, showSortIcons = true }) => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
   const handleSort = (col) => {
@@ -54,7 +55,7 @@ export const UIKitTable = ({ columns, data, headerColor = '#4B5EAA', scrollEnabl
               >
                 <div className="flex items-center">
                   {col}
-                  {sortConfig.key === col && (
+                  {showSortIcons && sortConfig.key === col && (
                     sortConfig.direction === 'asc' ? (
                       <FaSortUp className="ml-1 text-white" />
                     ) : (

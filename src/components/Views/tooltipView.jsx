@@ -9,7 +9,9 @@ const TooltipView = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 place-items-center">
-        {/* Primary Tooltip */}
+    
+
+
         <div className="space-y-4 text-center">
           <h3 className="text-lg font-semibold text-gray-800">
             Default Tooltip
@@ -23,7 +25,7 @@ const TooltipView = () => {
           </UIKitTooltip>
         </div>
 
-        {/* Tooltip with icon */}
+        {/*  icon */}
         <div className="space-y-4 text-center">
           <h3 className="text-lg font-semibold text-gray-800">
             Tooltip on Icon
@@ -35,7 +37,7 @@ const TooltipView = () => {
           </UIKitTooltip>
         </div>
 
-        {/* Tooltip on disabled button */}
+        {/* disabled button */}
         <div className="space-y-4 text-center">
           <h3 className="text-lg font-semibold text-gray-800">
             Tooltip on Disabled Button

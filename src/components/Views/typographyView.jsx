@@ -4,37 +4,72 @@ import UIKitTypography from '../Typography/typography';
 const TypographyView = () => {
   return (
     <div className="space-y-4 p-6">
-      {/* Typography Headings */}
       <h2 className="text-2xl font-bold text-gray-800">Typography</h2>
 
-      {/* Default Typography */}
+    
       <div>
-        <UIKitTypography>Design (default)</UIKitTypography>
+        <UIKitTypography fontFamily="Montserrat, sans-serif">
+          Design (default)
+        </UIKitTypography>
       </div>
 
-      {/* Styled Typography */}
+      
       <div className="space-y-2">
-        <UIKitTypography type="secondary">Design (secondary)</UIKitTypography>
-        <UIKitTypography type="success">Design (success)</UIKitTypography>
-        <UIKitTypography type="warning">Design (warning)</UIKitTypography>
-        <UIKitTypography type="danger">Design (danger)</UIKitTypography>
-        <UIKitTypography type="disabled">Design (disabled)</UIKitTypography>
-        <UIKitTypography type="mark">Design (mark)</UIKitTypography>
-        <UIKitTypography type="code">Design (code)</UIKitTypography>
-        <UIKitTypography type="keyboard">Design (keyboard)</UIKitTypography>
-        <UIKitTypography type="underline">Design (underline)</UIKitTypography>
-        <UIKitTypography type="delete">Design (delete)</UIKitTypography>
-        <UIKitTypography type="strong">Design (strong)</UIKitTypography>
-        <UIKitTypography type="italic">Design (italic)</UIKitTypography>
-        <UIKitTypography type="link">Design (Link)</UIKitTypography>
+        <UIKitTypography fontFamily="Arial, sans-serif" type="secondary">
+          Design (secondary)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Roboto, sans-serif" type="success">
+          Design (success)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Verdana, sans-serif" type="warning">
+          Design (warning)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Tahoma, sans-serif" type="danger">
+          Design (danger)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Georgia, serif" type="disabled">
+          Design (disabled)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Courier New, monospace" type="mark">
+          Design (mark)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Comic Sans MS, cursive" type="code">
+          Design (code)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Arial, sans-serif" type="keyboard">
+          Design (keyboard)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Georgia, serif" type="underline">
+          Design (underline)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Times New Roman, serif" type="delete">
+          Design (delete)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Courier New, monospace" type="strong">
+          Design (strong)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Arial, sans-serif" type="italic">
+          Design (italic)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Verdana, sans-serif" type="link">
+          Design (Link)
+        </UIKitTypography>
       </div>
 
-      {/* Typography with Different Tags */}
+      
       <div className="space-y-2">
-        <UIKitTypography as="h1" type="success">This is an H1 Heading (Success)</UIKitTypography>
-        <UIKitTypography as="h2" type="warning">This is H2 (Warning)</UIKitTypography>
-        <UIKitTypography as="p" type="code">This is code inside paragraph</UIKitTypography>
-        <UIKitTypography as="span" type="danger">Danger inside span</UIKitTypography>
+        <UIKitTypography fontFamily="Montserrat, sans-serif" as="h1" type="success">
+          This is an H1 Heading (Success)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Roboto, sans-serif" as="h2" type="warning">
+          This is H2 (Warning)
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Verdana, sans-serif" as="p" type="code">
+          This is code inside paragraph
+        </UIKitTypography>
+        <UIKitTypography fontFamily="Georgia, serif" as="span" type="danger">
+          Danger inside span
+        </UIKitTypography>
       </div>
     </div>
   );

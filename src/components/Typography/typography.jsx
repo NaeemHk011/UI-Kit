@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const typeClassMap = {
@@ -28,13 +29,21 @@ const sizeClassMap = {
   span: 'text-base',
 };
 
-const UIKitTypography = ({ children, type = 'default', as = 'p' }) => {
+const UIKitTypography = ({
+  children,
+  type = 'default',
+  as = 'p',
+  fontFamily = 'Montserrat, sans-serif',  // Default font family passed as prop
+}) => {
   const Element = as;
   const typeClasses = typeClassMap[type] || typeClassMap.default;
   const sizeClasses = sizeClassMap[as] || '';
 
   return (
-    <Element className={`${typeClasses} ${sizeClasses}`}>
+    <Element
+      className={`${typeClasses} ${sizeClasses}`}
+      style={{ fontFamily }}  // Apply the font family here
+    >
       {children}
     </Element>
   );

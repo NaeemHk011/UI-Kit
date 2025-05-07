@@ -1,4 +1,4 @@
-// FloatView.jsx
+
 import React from 'react';
 import UIKitFloat from '../Floatbuttons/floatbuttons';
 import { FaArrowUp, FaPlus, FaHome, FaCog } from 'react-icons/fa';

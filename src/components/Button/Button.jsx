@@ -3,7 +3,7 @@ import React from 'react';
 const UIKitBtn = ({
   label = 'Button',
   type = 'primary',
-  customColor = '', // 👈 new prop added
+  customColor = '', 
   size = 'sm',
   shine = 'medium',
   onClick = () => { },
