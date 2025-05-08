@@ -15,11 +15,13 @@ import BadgeView from './components/Views/badgeView';
 import RadioViews from './components/Views/radioViews';
 import { AlertView } from './components/Views/alertView';
 import { ProgressView } from './components/Views/progressView';
-import { TableView } from './components/Views/tableView';
+
 import AvatarView from './components/Views/avatarView';
 import TooltipView from './components/Views/tooltipView';
 import TypographyView from './components/Views/typographyView';
 import FloatView from './components/Views/floatbuttonView';
+import { TableView } from './components/Views/tableView';
+
 
 
 
