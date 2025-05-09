@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { UIKitTable } from '../Table/table';
 
-// Static student data
+
 const generateStudentData = (count) => {
   const names = [
     'Ali', 'Ahmed', 'Sara', 'Fatima', 'Hassan', 'Zainab', 'Omar', 'Aisha', 'Bilal', 'Maryam',
@@ -34,7 +34,7 @@ export const TableView = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const pageSize = 20;
 
-  // Memoized filtered data
+  
   const filteredData = useMemo(() => {
     return studentData.filter((row) =>
       Object.values(row).some((value) =>
@@ -75,12 +75,12 @@ export const TableView = () => {
     (_, index) => startPage + index
   );
 
-  // Paginate filtered data
+  // Paginate ..
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const paginatedData = filteredData.slice(startIndex, endIndex);
 
-  // Handle row click
+  // row click
   const handleRowClick = (rowData) => {
     setSelectedRow(rowData);
   };
