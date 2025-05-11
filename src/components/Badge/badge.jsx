@@ -51,5 +51,3 @@ const UIKitBadge = ({ status = 'default', text = '', offset = [0, 0], children }
 };
 
 export default UIKitBadge;
-
-

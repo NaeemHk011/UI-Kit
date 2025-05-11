@@ -38,7 +38,7 @@ const MainLayout = () => {
             <span>Cards</span>
           </Link>
           <Link
-            to="/checkboxes"
+            to="/checkbox"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -65,7 +65,7 @@ const MainLayout = () => {
             <span>Slider</span>
           </Link>
           <Link
-            to="/text-field"
+            to="/Textfield"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -74,7 +74,7 @@ const MainLayout = () => {
             <span>Text Field</span>
           </Link>
           <Link
-            to="/toggle-button"
+            to="/Togglebutton"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -83,7 +83,7 @@ const MainLayout = () => {
             <span>Toggle Button</span>
           </Link>
           <Link
-            to="/radio-group"
+            to="/RadioButton"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -92,7 +92,7 @@ const MainLayout = () => {
             <span>Radio Group</span>
           </Link>
           <Link
-            to="/switch"
+            to="/SwitchButton"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -101,7 +101,7 @@ const MainLayout = () => {
             <span>Switch</span>
           </Link>
           <Link
-            to="/avatar"
+            to="/Avatar"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -110,7 +110,7 @@ const MainLayout = () => {
             <span>Avatar</span>
           </Link>
           <Link
-            to="/badge"
+            to="/Badge"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -119,7 +119,7 @@ const MainLayout = () => {
             <span>Badge</span>
           </Link>
           <Link
-            to="/alert"
+            to="/Alert"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -164,7 +164,7 @@ const MainLayout = () => {
             <span>Table</span>
           </Link>
           <Link
-            to="/tooltip"
+            to="/Tooltip"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -173,7 +173,7 @@ const MainLayout = () => {
             <span>Tooltip</span>
           </Link>
           <Link
-            to="/typography"
+            to="/Typography"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -182,16 +182,16 @@ const MainLayout = () => {
             <span>Typography</span>
           </Link>
           <Link
-            to="/floating-action-button"
+            to="/FloatButton"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
           >
             <FaPlusCircle className="text-lg" />
-            <span>Floating Action Button</span>
+            <span>Float Button</span>
           </Link>
           <Link
-            to="/result"
+            to="/Result"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"
@@ -200,7 +200,7 @@ const MainLayout = () => {
             <span>Result</span>
           </Link>
           <Link
-            to="/loader"
+            to="/Loader"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
               border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
               transition-all duration-300 ease-in-out"

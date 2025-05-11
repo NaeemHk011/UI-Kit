@@ -1,7 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { UIKitTable } from '../Table/table';
-
+import { useState, useMemo } from 'react';
+import UIKitTable from '../Table/table';
 
 const generateStudentData = (count) => {
   const names = [
@@ -25,25 +23,155 @@ const generateStudentData = (count) => {
   return data;
 };
 
-const studentData = generateStudentData(1000);
+const defaultStudentData = generateStudentData(1000);
 
-export const TableView = () => {
-  const columns = ['Name', 'RollNo', 'Grade', 'Marks', 'Status'];
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
+const validateAndNormalizeColors = (colors) => {
+  const hexRegex = /^(#?[0-9A-Fa-f]{6})$/;
+  if (!Array.isArray(colors) || colors.length < 1 || colors.length > 2) {
+    return ['#ffffff', '#f9f9f9'];
+  }
+
+  const normalized = colors.map((color) => {
+    if (typeof color !== 'string') return '#ffffff';
+    const trimmed = color.trim();
+    const hasHash = trimmed.startsWith('#');
+    const cleanColor = hasHash ? trimmed : `#${trimmed}`;
+    return hexRegex.test(cleanColor) ? cleanColor : '#ffffff';
+  });
+
+  return normalized.length === 1 ? [normalized[0]] : normalized;
+};
+
+const TableView = ({
+  columns = ['Name', 'RollNo', 'Grade', 'Marks', 'Status'],
+  data = defaultStudentData,
+  headerColor = '#4B5EAA',
+  rowColors = ['#ffffff', '#f9f9f9'],
+  pageSize = 20,
+  initialPage = 1,
+  initialSort = { key: null, direction: null },
+  initialSearch = '',
+  enableRowSelection = false,
+  editableColumns = ['Name', 'RollNo'],
+  editMode = 'column',
+  enableExport = false,
+  onEditStart = null,
+  onEditSave = null,
+  rowHeight = 'sm',
+  cellPadding = 'sm'
+}) => {
+  const [tableData, setTableData] = useState(data);
+  const [sortConfig, setSortConfig] = useState(initialSort);
+  const [editingRow, setEditingRow] = useState(null);
+  const [editedRowData, setEditedRowData] = useState({});
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedTableProps, setSelectedTableProps] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
-  const pageSize = 20;
 
-  
+  const normalizedRowColors = validateAndNormalizeColors(rowColors);
+
+  const tableProps = {
+    columns: JSON.stringify(columns),
+    headerColor,
+    rowColors: JSON.stringify(normalizedRowColors),
+    pageSize,
+    enableRowSelection,
+    editableColumns: JSON.stringify(editableColumns),
+    editMode,
+    enableExport,
+    rowHeight,
+    cellPadding
+  };
+
   const filteredData = useMemo(() => {
-    return studentData.filter((row) =>
+    return tableData.filter((row) =>
       Object.values(row).some((value) =>
         value.toString().toLowerCase().includes(searchQuery.toLowerCase())
       )
     );
-  }, [searchQuery]);
+  }, [tableData, searchQuery]);
 
   const totalPages = Math.ceil(filteredData.length / pageSize);
+
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+
+    const sortedData = [...filteredData].sort((a, b) => {
+      let valA = a[key]?.toString().replace('$', '') || '';
+      let valB = b[key]?.toString().replace('$', '') || '';
+      const isNumeric = !isNaN(valA) && !isNaN(valB);
+
+      if (isNumeric) {
+        return direction === 'asc'
+          ? parseFloat(valA) - parseFloat(valB)
+          : parseFloat(valB) - parseFloat(valA);
+      }
+      return direction === 'asc'
+        ? valA.localeCompare(valB)
+        : valB.localeCompare(valA);
+    });
+    setTableData((prev) => {
+      const newData = [...prev];
+      const startIndex = (currentPage - 1) * pageSize;
+      sortedData.forEach((item, idx) => {
+        newData[startIndex + idx] = item;
+      });
+      return newData;
+    });
+  };
+
+  const handleEditStart = (rowIndex) => {
+    const rowData = filteredData[rowIndex];
+    setEditingRow(rowIndex);
+    setEditedRowData({ ...rowData });
+    if (onEditStart) {
+      const editableFields = editMode === 'row' ? columns : editableColumns;
+      onEditStart(rowIndex, editableFields);
+    }
+  };
+
+  const handleEditChange = (field, value) => {
+    setEditedRowData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSave = () => {
+    if (editingRow !== null) {
+      const updatedRow = { ...filteredData[editingRow], ...editedRowData };
+      setTableData((prev) =>
+        prev.map((item, idx) =>
+          idx === editingRow ? updatedRow : item
+        )
+      );
+      setShowConfirmation(true);
+      if (onEditSave) {
+        onEditSave(updatedRow);
+      }
+    }
+    setEditingRow(null);
+    setEditedRowData({});
+  };
+
+  const handleCancel = () => {
+    setEditingRow(null);
+    setEditedRowData({});
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmAction = (action) => {
+    if (action === 'save') {
+      handleSave();
+    } else {
+      handleCancel();
+    }
+    setShowConfirmation(false);
+  };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -61,6 +189,70 @@ export const TableView = () => {
     }
   };
 
+  const handleRowSelection = (rowIndex) => {
+    setSelectedRows((prev) =>
+      prev.includes(rowIndex)
+        ? prev.filter((idx) => idx !== rowIndex)
+        : [...prev, rowIndex]
+    );
+  };
+
+  const handleSelectAll = (checked) => {
+    if (checked) {
+      const pageIndices = filteredData
+        .slice((currentPage - 1) * pageSize, currentPage * pageSize)
+        .map((_, idx) => (currentPage - 1) * pageSize + idx);
+      setSelectedRows(pageIndices);
+    } else {
+      setSelectedRows([]);
+    }
+  };
+
+  const handleExport = () => {
+    const selectedData = selectedRows.map((idx) => filteredData[idx]);
+    const csvContent = [
+      columns.join(','),
+      ...selectedData.map((row) =>
+        columns.map((col) => `"${row[col] || ''}"`).join(',')
+      ),
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'selected_students.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
+  const handleShowTableProps = () => {
+    setSelectedTableProps(tableProps);
+  };
+
+  const handleRowClick = (rowData) => {
+    setSelectedRow(rowData);
+  };
+
+  const handleCopyProps = () => {
+    if (selectedTableProps) {
+      const propsString = `<UIKitTable ${Object.entries(selectedTableProps)
+        .map(([key, value]) => `${key}={${value}}`)
+        .join(' ')} />`;
+      navigator.clipboard.writeText(propsString);
+    }
+  };
+
+  const handleCopyRow = () => {
+    if (selectedRow) {
+      navigator.clipboard.writeText(JSON.stringify(selectedRow, null, 2));
+    }
+  };
+
+  const closeModal = () => {
+    setSelectedTableProps(null);
+    setSelectedRow(null);
+  };
+
   const maxVisiblePages = 5;
   const halfVisible = Math.floor(maxVisiblePages / 2);
   let startPage = Math.max(1, currentPage - halfVisible);
@@ -75,81 +267,83 @@ export const TableView = () => {
     (_, index) => startPage + index
   );
 
-  // Paginate ..
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const paginatedData = filteredData.slice(startIndex, endIndex);
 
-  // row click
-  const handleRowClick = (rowData) => {
-    setSelectedRow(rowData);
-  };
-
-  const handleCopy = () => {
-    if (selectedRow) {
-      navigator.clipboard.writeText(JSON.stringify(selectedRow, null, 2));
-    }
-  };
-
-  const closeModal = () => {
-    setSelectedRow(null);
-  };
-
   return (
     <div className="p-6 space-y-10">
-      <h2 className="text-3xl font-bold text-[#4B5EAA] text-center">Student Records Table</h2>
-      <div className="space-y-2">
-        <h3 className="text-xl font-semibold text-center text-gray-700">Primary Student Table</h3>
-        <div className="relative">
-          <div className="flex items-center space-x-4 mb-4">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-4 py-2 border rounded w-64"
-              placeholder="Search table..."
-            />
-          </div>
-          <UIKitTable
-            columns={columns}
-            data={paginatedData}
-            headerColor="#4B5EAA"
-            showSortIcons={true}
-            onRowClick={handleRowClick}
-          />
-          <div className="flex justify-center items-center mt-4">
-            <div className="flex items-center space-x-2">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-3xl font-bold text-[#4B5EAA]">Student Records Table</h2>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={handleShowTableProps}
+        >
+          Show Table Props
+        </button>
+      </div>
+      <UIKitTable
+        columns={columns}
+        data={paginatedData}
+        headerColor={headerColor}
+        rowColors={normalizedRowColors}
+        sortConfig={sortConfig}
+        editingRow={editingRow}
+        editedRowData={editedRowData}
+        showConfirmation={showConfirmation}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        visiblePages={visiblePages}
+        searchQuery={searchQuery}
+        enableRowSelection={enableRowSelection}
+        selectedRows={selectedRows}
+        editableColumns={editableColumns}
+        editMode={editMode}
+        enableExport={enableExport}
+        rowHeight={rowHeight}
+        cellPadding={cellPadding}
+        onSort={handleSort}
+        onEditStart={handleEditStart}
+        onEditChange={handleEditChange}
+        onSave={handleSave}
+        onCancel={handleCancel}
+        onConfirmAction={handleConfirmAction}
+        onPageChange={handlePageChange}
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+        onSearch={(query) => setSearchQuery(query)}
+        onRowSelection={handleRowSelection}
+        onSelectAll={handleSelectAll}
+        onExport={handleExport}
+        onRowClick={handleRowClick}
+      />
+
+      {selectedTableProps && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-lg w-full">
+            <h2 className="text-xl font-bold mb-4">Table Props</h2>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-auto max-h-96">
+              {`<UIKitTable ${Object.entries(selectedTableProps)
+                .map(([key, value]) => `${key}={${value}}`)
+                .join(' ')} />`}
+            </pre>
+            <div className="flex gap-4 mt-4">
               <button
-                onClick={handlePrevious}
-                disabled={currentPage === 1}
-                className="p-2 rounded-full border border-gray-300 disabled:opacity-50"
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                onClick={handleCopyProps}
               >
-                <FaArrowLeft className="text-gray-600" />
+                Copy Code
               </button>
-              {visiblePages.map((page) => (
-                <button
-                  key={page}
-                  onClick={() => handlePageChange(page)}
-                  className={`px-3 py-1 rounded border ${
-                    currentPage === page
-                      ? 'bg-blue-500 text-white border-blue-500'
-                      : 'border-blue-500 text-blue-500'
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
               <button
-                onClick={handleNext}
-                disabled={currentPage === totalPages}
-                className="p-2 rounded-full border border-gray-300 disabled:opacity-50"
+                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                onClick={closeModal}
               >
-                <FaArrowRight className="text-gray-600" />
+                Close
               </button>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {selectedRow && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -161,7 +355,7 @@ export const TableView = () => {
             <div className="flex gap-4 mt-4">
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                onClick={handleCopy}
+                onClick={handleCopyRow}
               >
                 Copy
               </button>
@@ -178,3 +372,5 @@ export const TableView = () => {
     </div>
   );
 };
+
+export default TableView;

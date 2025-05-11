@@ -11,16 +11,18 @@ import InputView from './components/Views/inputView';
 import SliderView from './components/Views/sliderViews';
 import TextView from './components/Views/textfieldView';
 import SwitchView from './components/Views/switchView';
-import BadgeView from './components/Views/badgeView';
 import RadioViews from './components/Views/radioViews';
 import { AlertView } from './components/Views/alertView';
 import { ProgressView } from './components/Views/progressView';
-
 import AvatarView from './components/Views/avatarView';
 import TooltipView from './components/Views/tooltipView';
 import TypographyView from './components/Views/typographyView';
 import FloatView from './components/Views/floatbuttonView';
-import { TableView } from './components/Views/tableView';
+import TableView from './components/Views/tableView';
+import ResultView from './components/Views/resultView';
+import LoaderView from './components/Views/loaderView';
+import BadgeView from './components/Views/badgeView';
+
 
 
 
@@ -52,7 +54,9 @@ createRoot(document.getElementById('root')).render(
             <Route path="Table" element={<TableView/>} />
             <Route path="Tooltip" element={<TooltipView/>} />
             <Route path="Typography" element={<TypographyView/>} />
-            <Route path="Floatbuttons" element={<FloatView/>} />
+            <Route path="Floatbutton" element={<FloatView/>} />
+            <Route path="Result" element={<ResultView/>} />
+            <Route path="Loader" element={<LoaderView/>} />
 
 
 
