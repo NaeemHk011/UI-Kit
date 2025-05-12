@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react';
+
+import { useState, useMemo, useEffect } from 'react';
 import UIKitTable from '../Table/table';
 
 const generateStudentData = (count) => {
@@ -9,6 +10,9 @@ const generateStudentData = (count) => {
   ];
   const grades = ['A', 'B', 'C', 'D', 'F'];
   const statuses = ['Pass', 'Fail', 'On Hold'];
+  const addresses = ['123 Main St', '456 Oak Ave', '789 Pine Rd', '101 Elm St', '202 Birch Ln'];
+  const emails = ['user1@example.com', 'user2@example.com', 'user3@example.com', 'user4@example.com', 'user5@example.com'];
+  const phones = ['+1-123-456-7890', '+1-234-567-8901', '+1-345-678-9012', '+1-456-789-0123', '+1-567-890-1234'];
 
   const data = [];
   for (let i = 0; i < count; i++) {
@@ -18,6 +22,14 @@ const generateStudentData = (count) => {
       Grade: grades[Math.floor(Math.random() * grades.length)],
       Marks: Math.floor(Math.random() * 100) + 1,
       Status: statuses[Math.floor(Math.random() * statuses.length)],
+      Address: addresses[Math.floor(Math.random() * addresses.length)],
+      Email: emails[Math.floor(Math.random() * emails.length)],
+      Phone: phones[Math.floor(Math.random() * phones.length)],
+      Extra1: `Extra${Math.floor(Math.random() * 100)}`,
+      Extra2: `Note${Math.floor(Math.random() * 10)}`,
+      Extra3: `Code${Math.floor(Math.random() * 1000)}`,
+      Extra4: `ID${Math.floor(Math.random() * 10000)}`,
+      Extra5: `Tag${Math.floor(Math.random() * 50)}`,
     });
   }
   return data;
@@ -43,7 +55,7 @@ const validateAndNormalizeColors = (colors) => {
 };
 
 const TableView = ({
-  columns = ['Name', 'RollNo', 'Grade', 'Marks', 'Status'],
+  columns = ['Name', 'RollNo', 'Grade', 'Marks', 'Status', 'Address', 'Email', 'Phone', 'Extra1', 'Extra2', 'Extra3', 'Extra4', 'Extra5'],
   data = defaultStudentData,
   headerColor = '#4B5EAA',
   rowColors = ['#ffffff', '#f9f9f9'],
@@ -53,12 +65,17 @@ const TableView = ({
   initialSearch = '',
   enableRowSelection = false,
   editableColumns = ['Name', 'RollNo'],
-  editMode = 'column',
+  editMode = 'column', // 'row' or 'column'
   enableExport = false,
   onEditStart = null,
   onEditSave = null,
-  rowHeight = 'sm',
-  cellPadding = 'sm'
+  rowHeight = 'sm', // 'sm', 'md', 'lg'
+  cellPadding = 'sm', // 'sm', 'md', 'lg'
+  checkboxColumns = [], // Columns with checkboxes, empty by default
+  onCheckboxChange = null,
+  sortIconSize = 'sm', // 'sm', 'md', 'lg'
+  headerFontSize = 'sm', // 'sm', 'md', 'lg'
+  enableColumnDrag = true, // Enable/disable column dragging
 }) => {
   const [tableData, setTableData] = useState(data);
   const [sortConfig, setSortConfig] = useState(initialSort);
@@ -68,23 +85,22 @@ const TableView = ({
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedRows, setSelectedRows] = useState([]);
-  const [selectedTableProps, setSelectedTableProps] = useState(null);
-  const [selectedRow, setSelectedRow] = useState(null);
+  const [checkboxStates, setCheckboxStates] = useState({});
+  const [columnOrder, setColumnOrder] = useState(columns);
 
   const normalizedRowColors = validateAndNormalizeColors(rowColors);
 
-  const tableProps = {
-    columns: JSON.stringify(columns),
-    headerColor,
-    rowColors: JSON.stringify(normalizedRowColors),
-    pageSize,
-    enableRowSelection,
-    editableColumns: JSON.stringify(editableColumns),
-    editMode,
-    enableExport,
-    rowHeight,
-    cellPadding
-  };
+  // Validate checkboxColumns
+  const validCheckboxColumns = useMemo(() => {
+    return Array.isArray(checkboxColumns)
+      ? checkboxColumns.filter((col) => columns.includes(col))
+      : [];
+  }, [checkboxColumns, columns]);
+
+  // Reset checkboxStates when checkboxColumns changes
+  useEffect(() => {
+    setCheckboxStates({});
+  }, [validCheckboxColumns]);
 
   const filteredData = useMemo(() => {
     return tableData.filter((row) =>
@@ -98,8 +114,14 @@ const TableView = ({
 
   const handleSort = (key) => {
     let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
+    if (sortConfig.key === key) {
+      if (sortConfig.direction === 'asc') {
+        direction = 'desc';
+      } else if (sortConfig.direction === 'desc') {
+        setSortConfig({ key: null, direction: null });
+        setTableData([...tableData]);
+        return;
+      }
     }
     setSortConfig({ key, direction });
 
@@ -211,9 +233,9 @@ const TableView = ({
   const handleExport = () => {
     const selectedData = selectedRows.map((idx) => filteredData[idx]);
     const csvContent = [
-      columns.join(','),
+      columnOrder.join(','),
       ...selectedData.map((row) =>
-        columns.map((col) => `"${row[col] || ''}"`).join(',')
+        columnOrder.map((col) => `"${row[col] || ''}"`).join(',')
       ),
     ].join('\n');
 
@@ -225,33 +247,52 @@ const TableView = ({
     URL.revokeObjectURL(link.href);
   };
 
-  const handleShowTableProps = () => {
-    setSelectedTableProps(tableProps);
-  };
-
-  const handleRowClick = (rowData) => {
-    setSelectedRow(rowData);
-  };
-
-  const handleCopyProps = () => {
-    if (selectedTableProps) {
-      const propsString = `<UIKitTable ${Object.entries(selectedTableProps)
-        .map(([key, value]) => `${key}={${value}}`)
-        .join(' ')} />`;
-      navigator.clipboard.writeText(propsString);
+  const handleCheckboxChange = (rowIndex, column, checked) => {
+    setCheckboxStates((prev) => ({
+      ...prev,
+      [rowIndex]: {
+        ...prev[rowIndex],
+        [column]: checked,
+      },
+    }));
+    if (onCheckboxChange) {
+      onCheckboxChange(rowIndex, column, checked);
     }
   };
 
-  const handleCopyRow = () => {
-    if (selectedRow) {
-      navigator.clipboard.writeText(JSON.stringify(selectedRow, null, 2));
-    }
+  const handleDragStart = (col) => {
+    setDraggingColumn(col);
   };
 
-  const closeModal = () => {
-    setSelectedTableProps(null);
-    setSelectedRow(null);
+  const handleDragOver = (e, col) => {
+    e.preventDefault();
+    setDropTarget(col);
   };
+
+  const handleDrop = (targetCol) => {
+    if (draggingColumn && targetCol && draggingColumn !== targetCol) {
+      const newColumnOrder = [...columnOrder];
+      const sourceIndex = newColumnOrder.indexOf(draggingColumn);
+      const targetIndex = newColumnOrder.indexOf(targetCol);
+      newColumnOrder.splice(sourceIndex, 1);
+      newColumnOrder.splice(targetIndex, 0, draggingColumn);
+      setColumnOrder(newColumnOrder);
+
+      const reorderedData = tableData.map((row) => {
+        const newRow = {};
+        newColumnOrder.forEach((col) => {
+          newRow[col] = row[col];
+        });
+        return newRow;
+      });
+      setTableData(reorderedData);
+    }
+    setDraggingColumn(null);
+    setDropTarget(null);
+  };
+
+  const [draggingColumn, setDraggingColumn] = useState(null);
+  const [dropTarget, setDropTarget] = useState(null);
 
   const maxVisiblePages = 5;
   const halfVisible = Math.floor(maxVisiblePages / 2);
@@ -272,104 +313,51 @@ const TableView = ({
   const paginatedData = filteredData.slice(startIndex, endIndex);
 
   return (
-    <div className="p-6 space-y-10">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-3xl font-bold text-[#4B5EAA]">Student Records Table</h2>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          onClick={handleShowTableProps}
-        >
-          Show Table Props
-        </button>
-      </div>
-      <UIKitTable
-        columns={columns}
-        data={paginatedData}
-        headerColor={headerColor}
-        rowColors={normalizedRowColors}
-        sortConfig={sortConfig}
-        editingRow={editingRow}
-        editedRowData={editedRowData}
-        showConfirmation={showConfirmation}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        visiblePages={visiblePages}
-        searchQuery={searchQuery}
-        enableRowSelection={enableRowSelection}
-        selectedRows={selectedRows}
-        editableColumns={editableColumns}
-        editMode={editMode}
-        enableExport={enableExport}
-        rowHeight={rowHeight}
-        cellPadding={cellPadding}
-        onSort={handleSort}
-        onEditStart={handleEditStart}
-        onEditChange={handleEditChange}
-        onSave={handleSave}
-        onCancel={handleCancel}
-        onConfirmAction={handleConfirmAction}
-        onPageChange={handlePageChange}
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-        onSearch={(query) => setSearchQuery(query)}
-        onRowSelection={handleRowSelection}
-        onSelectAll={handleSelectAll}
-        onExport={handleExport}
-        onRowClick={handleRowClick}
-      />
-
-      {selectedTableProps && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-lg w-full">
-            <h2 className="text-xl font-bold mb-4">Table Props</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-auto max-h-96">
-              {`<UIKitTable ${Object.entries(selectedTableProps)
-                .map(([key, value]) => `${key}={${value}}`)
-                .join(' ')} />`}
-            </pre>
-            <div className="flex gap-4 mt-4">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                onClick={handleCopyProps}
-              >
-                Copy Code
-              </button>
-              <button
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-                onClick={closeModal}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {selectedRow && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-lg w-full">
-            <h2 className="text-xl font-bold mb-4">Row Data</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded overflow-auto max-h-96">
-              {JSON.stringify(selectedRow, null, 2)}
-            </pre>
-            <div className="flex gap-4 mt-4">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                onClick={handleCopyRow}
-              >
-                Copy
-              </button>
-              <button
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-                onClick={closeModal}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    <UIKitTable
+      columns={columnOrder}
+      data={paginatedData}
+      headerColor={headerColor}
+      rowColors={normalizedRowColors}
+      sortConfig={sortConfig}
+      editingRow={editingRow}
+      editedRowData={editedRowData}
+      showConfirmation={showConfirmation}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      visiblePages={visiblePages}
+      searchQuery={searchQuery}
+      enableRowSelection={enableRowSelection}
+      selectedRows={selectedRows}
+      editableColumns={editableColumns}
+      editMode={editMode}
+      enableExport={enableExport}
+      rowHeight={rowHeight}
+      cellPadding={cellPadding}
+      checkboxColumns={validCheckboxColumns}
+      checkboxStates={checkboxStates}
+      sortIconSize={sortIconSize}
+      headerFontSize={headerFontSize}
+      enableColumnDrag={enableColumnDrag}
+      draggingColumn={draggingColumn}
+      dropTarget={dropTarget}
+      onSort={handleSort}
+      onEditStart={handleEditStart}
+      onEditChange={handleEditChange}
+      onSave={handleSave}
+      onCancel={handleCancel}
+      onConfirmAction={handleConfirmAction}
+      onPageChange={handlePageChange}
+      onNext={handleNext}
+      onPrevious={handlePrevious}
+      onSearch={(query) => setSearchQuery(query)}
+      onRowSelection={handleRowSelection}
+      onSelectAll={handleSelectAll}
+      onExport={handleExport}
+      onCheckboxChange={handleCheckboxChange}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+    />
   );
 };
 

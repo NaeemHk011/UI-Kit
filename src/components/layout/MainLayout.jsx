@@ -73,15 +73,7 @@ const MainLayout = () => {
             <FaTextHeight className="text-lg" />
             <span>Text Field</span>
           </Link>
-          <Link
-            to="/Togglebutton"
-            className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
-              border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
-              transition-all duration-300 ease-in-out"
-          >
-            <FaToggleOn className="text-lg" />
-            <span>Toggle Button</span>
-          </Link>
+          
           <Link
             to="/RadioButton"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
@@ -145,15 +137,8 @@ const MainLayout = () => {
             <FaIcons className="text-lg" />
             <span>Material Icon</span>
           </Link>
-          <Link
-            to="/list"
-            className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
-              border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
-              transition-all duration-300 ease-in-out"
-          >
-            <FaList className="text-lg" />
-            <span>List</span>
-          </Link>
+          
+          
           <Link
             to="/table"
             className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
