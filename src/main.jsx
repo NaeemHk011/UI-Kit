@@ -22,6 +22,8 @@ import FloatView from './components/Views/floatbuttonView';
 import LoaderView from './components/Views/loaderView';
 import BadgeView from './components/Views/badgeView';
 import ResultView from './components/Views/resultView';
+import TableView from './components/Views/tableView';
+
 
 
 
@@ -51,7 +53,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="Alert" element={<AlertView/>} />
             <Route path="Progress" element={<ProgressView/>} />
             <Route path="Avatar" element={<AvatarView/>} />
-            {/* <Route path="Table" element={</>} /> */}
+            <Route path="Table" element={<TableView/>} />
             <Route path="Tooltip" element={<TooltipView/>} />
             <Route path="Typography" element={<TypographyView/>} />
             <Route path="Floatbutton" element={<FloatView/>} />
