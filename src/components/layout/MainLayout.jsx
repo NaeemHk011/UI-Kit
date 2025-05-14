@@ -128,15 +128,7 @@ const MainLayout = () => {
             <FaSpinner className="text-lg" />
             <span>Progress</span>
           </Link>
-          <Link
-            to="/material-icon"
-            className="flex items-center space-x-3 p-3 rounded-lg bg-white text-[#4B5EAA] font-medium
-              border border-gray-200 shadow-sm hover:bg-[#E6F0FA] hover:border-[#5C7CFA] hover:shadow-md
-              transition-all duration-300 ease-in-out"
-          >
-            <FaIcons className="text-lg" />
-            <span>Material Icon</span>
-          </Link>
+         
           
           
           <Link
