@@ -1,7 +1,7 @@
 // src/components/UIKitProgress.jsx
 import React from 'react';
 
-export const UIKitProgress = ({
+const UIKitProgress = ({
   type = 'linear',
   progress = 0,
   color = '#4B5EAA',
@@ -61,3 +61,5 @@ export const UIKitProgress = ({
     </div>
   );
 };
+
+export default UIKitProgress;

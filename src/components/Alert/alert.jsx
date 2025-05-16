@@ -23,11 +23,11 @@ const positionStyles = {
   'bottom-right': 'bottom-4 right-4',
 };
 
-export const UIKitAlert = ({
+const Alert = ({
   type = 'info',
   message,
   heading,
-  position, 
+  position,
 }) => {
   const [visible, setVisible] = useState(true);
 
@@ -58,3 +58,5 @@ export const UIKitAlert = ({
     </div>
   );
 };
+
+export default Alert;
